@@ -1,3 +1,10 @@
+# Hide API Keys
+config.py
+FrontEnd/FrontEnd/settings.py
+
+# cache file
+.cache-22qgar7duksytos2kcf7znuca
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -44,6 +51,7 @@ htmlcov/
 .coverage
 .coverage.*
 .cache
+.cache-
 nosetests.xml
 coverage.xml
 *.cover
