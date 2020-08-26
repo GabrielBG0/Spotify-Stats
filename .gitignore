@@ -1,6 +1,6 @@
 # Hide API Keys
 config.py
-SpotifyStats/SpotifyStats/settings.py
+FrontEnd/FrontEnd/settings.py
 
 # cache file
 .cache-22qgar7duksytos2kcf7znuca
