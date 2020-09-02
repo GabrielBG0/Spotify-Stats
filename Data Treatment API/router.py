@@ -1,16 +1,12 @@
 from flask import Flask
 from flask_restful import Api, Resource
+from playlistStatsEP import PlaylistStatsEP
 
 app = Flask(__name__)
 api = Api(app)
 
 
-class HelloWorld(Resource):
-    def get(self):
-        return {"data": "Hello Wolrd"}
-
-
-api.add_resource(HelloWorld, "/HelloWorld")
+api.add_resource(PlaylistStatsEP, "/plStats")
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -78,7 +78,7 @@ class PlaylistStats:
         plt.title('Playlist Keys')
         plt.show()
 
-    def meanStatistics(self, processed_playlist, wanted_statistics):
+    def meanStatisticsPlot(self, processed_playlist, wanted_statistics):
         means = dict()
 
         for metric in wanted_statistics:
@@ -94,9 +94,37 @@ class PlaylistStats:
         plt.ylim((0, 1))
         plt.show()
 
+    def keyDistribution(self):
+        keys = list()
+        for track in processed_playlist:
+            keys.append(track[0]['key'])
+        keys.sort()
+        counted_keys = Counter(keys)
+        return counted_keys
+
+    def meanStatistics(self):
+        means = dict()
+
+        for metric in wanted_statistics:
+            sup = list()
+            for track in processed_playlist:
+                sup.append(track[0][metric])
+            means[metric] = np.mean(sup)
+            return means
+
+
+def runPlaylistKeys(app):
+    play = app.getPlaylistTracks()
+    processed_playlist = app.processData(play)
+    playlist_Alalysis = list()
+    for track in processed_playlist:
+        playlist_Alalysis.append([app.trackAnalysis(track)])
+    return app.keyDistribution(playlist_Alalysis)
+
 
 # spotify:playlist:6EKo3FtKEaoLgNSX8jptsy - hollow knigth
 # spotify:playlist:5qezJrYrhycL3FVyyRCjGa -Jul/Aug
+'''
 if __name__ == '__main__':
     credentials = config.getCredentials()
     app = PlaylistStats(
@@ -113,3 +141,4 @@ if __name__ == '__main__':
                          'liveness', 'speechiness', 'valence')
 
     app.meanStatistics(playlist_Alalysis, wanted_statistics)
+'''
