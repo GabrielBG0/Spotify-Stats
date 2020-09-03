@@ -1,11 +1,10 @@
 import spotipy
 import spotipy.util as util
-from spotipy.oauth2 import SpotifyClientCredentials
 import numpy as np
 import matplotlib.pyplot as plt
 import json
-from collections import Counter
 import config
+from spotipy.oauth2 import SpotifyClientCredentials
 
 
 class PlaylistStats:
