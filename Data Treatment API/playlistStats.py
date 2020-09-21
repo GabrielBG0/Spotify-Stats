@@ -4,6 +4,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import json
 import config
+from collections import Counter
 from spotipy.oauth2 import SpotifyClientCredentials
 
 
@@ -93,7 +94,7 @@ class PlaylistStats:
         plt.ylim((0, 1))
         plt.show()
 
-    def keyDistribution(self):
+    def keyDistribution(self, processed_playlist):
         keys = list()
         for track in processed_playlist:
             keys.append(track[0]['key'])
@@ -101,7 +102,7 @@ class PlaylistStats:
         counted_keys = Counter(keys)
         return counted_keys
 
-    def meanStatistics(self):
+    def meanStatistics(self, processed_playlist, wanted_statistics):
         means = dict()
 
         for metric in wanted_statistics:

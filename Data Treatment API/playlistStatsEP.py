@@ -1,4 +1,5 @@
 import config
+import playlistStats
 from playlistStats import PlaylistStats
 from flask_restful import reqparse, abort
 from flask.views import MethodView
