@@ -3,14 +3,13 @@ import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 import numpy as np
 import matplotlib.pyplot as plt
-import json
 from collections import Counter
-import config
+from decouple import config
 
 
 class PlaylistStats:
 
-    def __init__(self, client_id, client_secret, playlist_id, redirect_uri='http://google.com/', username='22qgar7duksytos2kcf7znuca', scope='user-library-read playlist-read-private'):
+    def __init__(self, client_id, client_secret, playlist_id, redirect_uri='https://google.com/', username='22qgar7duksytos2kcf7znuca', scope='user-library-read playlist-read-private'):
         self.client_id = client_id
         self.client_secret = client_secret
         self.redirect_uri = redirect_uri
@@ -22,12 +21,9 @@ class PlaylistStats:
 
         client_credentials_manager = SpotifyClientCredentials(
             client_id=self.client_id, client_secret=self.client_secret)
-        try:
-            token = util.prompt_for_user_token(
-                self.username, self.scope, client_id=self.client_id, client_secret=self.client_secret, redirect_uri=self.redirect_uri)
-            self.sp = spotipy.Spotify(auth=token)
-        except:
-            print('Token is not accesible for ' + username)
+        token = util.prompt_for_user_token(
+            self.username, self.scope, client_id=self.client_id, client_secret=self.client_secret, redirect_uri=self.redirect_uri)
+        self.sp = spotipy.Spotify(auth=token)
 
     def getInfo(self):
         return {
@@ -95,15 +91,15 @@ class PlaylistStats:
         plt.show()
 
 
-# spotify:playlist:6EKo3FtKEaoLgNSX8jptsy - hollow knigth
-# spotify:playlist:5qezJrYrhycL3FVyyRCjGa -Jul/Aug
+# spotify:playlist:7rE1I3V4XtVG2EiQJTX1GU - 2020
 if __name__ == '__main__':
-    credentials = config.getCredentials()
     app = PlaylistStats(
-        client_id=credentials[0], client_secret=credentials[1], playlist_id='5qezJrYrhycL3FVyyRCjGa')
+        client_id=config('SPOTIPY_CLIENT_ID'), client_secret=config('SPOTIPY_CLIENT_SECRET'), playlist_id='7rE1I3V4XtVG2EiQJTX1GU', redirect_uri=config('SPOTIPY_REDIRECT_URI'))
 
-    play = app.getPlaylistTracks()
-    processed_playlist = app.processData(play)
+    playlist_tracks = app.getPlaylistTracks()
+
+    processed_playlist = app.processData(playlist_tracks)
+
     playlist_Alalysis = list()
 
     for track in processed_playlist:
@@ -113,3 +109,4 @@ if __name__ == '__main__':
                          'liveness', 'speechiness', 'valence')
 
     app.meanStatistics(playlist_Alalysis, wanted_statistics)
+    app.keyDistributionPlot(playlist_Alalysis)
