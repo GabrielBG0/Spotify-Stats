@@ -1,5 +1,4 @@
 import spotipy
-from spotipy import client
 import spotipy.util as util
 from spotipy.oauth2 import SpotifyClientCredentials
 

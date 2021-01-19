@@ -6,7 +6,7 @@ class PlaylistDecomposer:
 
     def getPlaylistTracks(self, playlist_id):
         playlistTracks = self.sp.playlist_tracks(
-            self.playlist_id, fields='items.track(name, id)')
+            playlist_id, fields='items.track(name, id)')
 
         playlist_processed = list()
         for x, y in playlistTracks.items():
